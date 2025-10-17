@@ -1,3 +1,4 @@
+import io
 from PIL import Image
 
 img = Image.open("img1.jpg")
@@ -7,11 +8,22 @@ print(img.size, img.format, img.mode)
 print(img.info)
 print(img.getbbox())
 
-# Відкриваємо файл у бінарному режимі
-f = open("img2.gif", "rb")
-# Передаємо об'єкт файлу
-img = Image.open(f)
-# Виводимо передане зображення на екран:
+img = img.convert("L")
 img.show()
-f.close()
-# Закриваємо файл
+
+# Відкриваємо файл у бінарному режимі
+with open("img2.gif", "rb") as f:
+    img = Image.open(f)
+    img.show()
+
+
+# Читаємо ВЕСЬ вміст файлу в одну змінну у вигляді байтів
+with open("img2.gif", "rb") as f:
+    file_bytes = f.read()
+
+# Створюємо "файл у пам'яті" з цих байтів
+img_stream = io.BytesIO(file_bytes)
+
+# Передаємо цей об'єкт "файлу в пам'яті"
+img = Image.open(img_stream)
+img.show()
