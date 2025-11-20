@@ -47,7 +47,7 @@ def extract_hog(images, max_samples=None):
 X_hog = extract_hog(X, max_samples=len(X))
 
 # 3) Top-k через PCA (уменьшаем размерность HOG или raw)
-k = 50  # пробуй 20,50,100 — подобрать сам
+k = 20  # пробуй 20,50,100 — подобрать сам
 pca = PCA(n_components=k, random_state=42)
 X_pca = pca.fit_transform(X_hog)  # можно пробовать pca.fit_transform(X_raw) тоже
 
